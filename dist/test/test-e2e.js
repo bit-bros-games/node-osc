@@ -1,9 +1,10 @@
-import { beforeEach, test } from 'tap';
-import { bootstrap } from './util.mjs';
+'use strict';
 
-import { Server, Client } from 'node-osc';
+var tap = require('tap');
+var util = require('./util.js');
+var nodeOsc = require('node-osc');
 
-beforeEach(bootstrap);
+tap.beforeEach(util.bootstrap);
 
 function flaky() {
   return process.release.lts === 'Dubnium' && process.platform === 'win32';
@@ -14,11 +15,11 @@ function skip(t) {
   t.end();
 }
 
-test('osc: argument message no callback', (t) => {
+tap.test('osc: argument message no callback', (t) => {
   if (flaky()) return skip(t);
 
-  const oscServer = new Server(t.context.port, '0.0.0.0');
-  const client = new Client('0.0.0.0', t.context.port);
+  const oscServer = new nodeOsc.Server(t.context.port, '0.0.0.0');
+  const client = new nodeOsc.Client('0.0.0.0', t.context.port);
 
   t.plan(1);
 
@@ -31,11 +32,11 @@ test('osc: argument message no callback', (t) => {
   client.send('/test', 1, 2, 'testing');
 });
 
-test('osc: client with callback and message as arguments', (t) => {
+tap.test('osc: client with callback and message as arguments', (t) => {
   if (flaky()) return skip(t);
 
-  const oscServer = new Server(t.context.port, '0.0.0.0');
-  const client = new Client('0.0.0.0', t.context.port);
+  const oscServer = new nodeOsc.Server(t.context.port, '0.0.0.0');
+  const client = new nodeOsc.Client('0.0.0.0', t.context.port);
 
   t.plan(2);
 

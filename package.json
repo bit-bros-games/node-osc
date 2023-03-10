@@ -3,7 +3,7 @@
   "description": "pyOSC inspired library for sending and receiving OSC messages",
   "version": "8.0.10",
   "main": "./dist/lib/index.js",
-  "types": "index.d.ts",
+  "types": "./dist/lib/index.d.ts",
   "exports": {
     "require": "./dist/lib/index.js",
     "default": "./lib/index.mjs"

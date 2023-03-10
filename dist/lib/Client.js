@@ -1,6 +1,8 @@
-import { createSocket } from 'node:dgram';
-import oscMin from 'osc-min';
-import Message from './Message.mjs';
+'use strict';
+
+var node_dgram = require('node:dgram');
+var oscMin = require('osc-min');
+var Message = require('./Message.js');
 
 const { toBuffer } = oscMin;
 
@@ -8,7 +10,7 @@ class Client {
   constructor(host, port) {
     this.host = host;
     this.port = port;
-    this._sock = createSocket({
+    this._sock = node_dgram.createSocket({
       type: 'udp4',
       reuseAddr: true
     });
@@ -62,4 +64,4 @@ class Client {
   }
 }
 
-export default Client;
+module.exports = Client;

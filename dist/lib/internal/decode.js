@@ -1,4 +1,6 @@
-import { fromBuffer } from 'osc-min';
+'use strict';
+
+var oscMin = require('osc-min');
 
 function sanitizeMessage(decoded) {
   const message = [];
@@ -18,7 +20,7 @@ function sanitizeBundle(decoded) {
 }
 
 function decode(data) {
-  const decoded = fromBuffer(data);
+  const decoded = oscMin.fromBuffer(data);
   if (decoded.oscType === 'bundle') {
     return sanitizeBundle(decoded);
   }
@@ -27,4 +29,4 @@ function decode(data) {
   }
 }
 
-export default decode;
+module.exports = decode;

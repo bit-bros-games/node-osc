@@ -1,3 +1,5 @@
+'use strict';
+
 async function bootstrap(t) {
   const {default: getPorts, portNumbers} = await import('get-port');
   t.context.port = await getPorts({
@@ -5,6 +7,4 @@ async function bootstrap(t) {
   });
 }
 
-export {
-  bootstrap
-};
+exports.bootstrap = bootstrap;

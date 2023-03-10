@@ -1,4 +1,6 @@
-import Message from './Message.mjs';
+'use strict';
+
+var Message = require('./Message.js');
 
 function sanitize(element) {
   if (element instanceof Array) element = new Message(element[0], ...element.slice(1));
@@ -20,4 +22,4 @@ class Bundle {
   }
 }
 
-export default Bundle;
+module.exports = Bundle;

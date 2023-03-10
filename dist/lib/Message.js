@@ -1,3 +1,5 @@
+'use strict';
+
 class Argument {
   constructor(type, value) {
     this.type = type;
@@ -44,4 +46,4 @@ class Message {
   }
 }
 
-export default Message;
+module.exports = Message;

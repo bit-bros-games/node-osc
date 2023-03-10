@@ -1,13 +1,14 @@
-import { beforeEach, test } from 'tap';
+'use strict';
 
-import { Client, Server, Bundle } from 'node-osc';
+var tap = require('tap');
+var nodeOsc = require('node-osc');
+var util = require('./util.js');
 
-import { bootstrap } from './util.mjs';
-beforeEach(bootstrap);
+tap.beforeEach(util.bootstrap);
 
-test('bundle: verbose bundle', (t) => {
-  const server = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('bundle: verbose bundle', (t) => {
+  const server = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -21,7 +22,7 @@ test('bundle: verbose bundle', (t) => {
     t.same(bundle.elements[1], ['/two', 2]);
   });
 
-  client.send(new Bundle(1, {
+  client.send(new nodeOsc.Bundle(1, {
     address: '/one',
     args: [
       1
@@ -34,9 +35,9 @@ test('bundle: verbose bundle', (t) => {
   }));
 });
 
-test('bundle: array syntax', (t) => {
-  const server = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('bundle: array syntax', (t) => {
+  const server = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -50,15 +51,15 @@ test('bundle: array syntax', (t) => {
     t.same(bundle.elements[1], ['/two', 2]);
   });
 
-  client.send(new Bundle(
+  client.send(new nodeOsc.Bundle(
     ['/one', 1],
     ['/two', 2]
   ));
 });
 
-test('bundle: nested bundle', (t) => {
-  const server = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('bundle: nested bundle', (t) => {
+  const server = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(4);
 
@@ -67,13 +68,13 @@ test('bundle: nested bundle', (t) => {
     client.close();
   });
 
-  const payload = new Bundle(
+  const payload = new nodeOsc.Bundle(
     ['/one', 1],
     ['/two', 2],
     ['/three', 3]
   );
   
-  payload.append(new Bundle(10,
+  payload.append(new nodeOsc.Bundle(10,
     ['/four', 4]
   ));
 
@@ -86,4 +87,3 @@ test('bundle: nested bundle', (t) => {
 
   client.send(payload);
 });
-

@@ -1,16 +1,17 @@
-import { createSocket } from 'node:dgram';
-import { EventEmitter } from 'node:events';
+'use strict';
 
-import decode from './internal/decode.mjs';
+var node_dgram = require('node:dgram');
+var node_events = require('node:events');
+var decode = require('./internal/decode.js');
 
-class Server extends EventEmitter {
+class Server extends node_events.EventEmitter {
   constructor(port, host, cb) {
     super();
     if (!cb) cb = () => {};
     let decoded;
     this.port = port;
     this.host = host;
-    this._sock = createSocket({
+    this._sock = node_dgram.createSocket({
       type: 'udp4',
       reuseAddr: true
     });
@@ -42,4 +43,4 @@ class Server extends EventEmitter {
   }
 }
 
-export default Server;
+module.exports = Server;

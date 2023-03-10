@@ -1,13 +1,14 @@
-import { beforeEach, test } from 'tap';
-import { bootstrap } from './util.mjs';
+'use strict';
 
-import { Server, Client } from 'node-osc';
+var tap = require('tap');
+var util = require('./util.js');
+var nodeOsc = require('node-osc');
 
-beforeEach(bootstrap);
+tap.beforeEach(util.bootstrap);
 
-test('client: with array', (t) => {
-  const oscServer = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('client: with array', (t) => {
+  const oscServer = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -22,9 +23,9 @@ test('client: with array', (t) => {
   });
 });
 
-test('client: with string', (t) => {
-  const oscServer = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('client: with string', (t) => {
+  const oscServer = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -39,9 +40,9 @@ test('client: with string', (t) => {
   });
 });
 
-test('client: with Message object', (t) => {
-  const oscServer = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('client: with Message object', (t) => {
+  const oscServer = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -65,9 +66,9 @@ test('client: with Message object', (t) => {
   });
 });
 
-test('client: with Bundle object', (t) => {
-  const oscServer = new Server(t.context.port, '127.0.0.1');
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('client: with Bundle object', (t) => {
+  const oscServer = new nodeOsc.Server(t.context.port, '127.0.0.1');
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
@@ -91,8 +92,8 @@ test('client: with Bundle object', (t) => {
   });
 });
 
-test('client: failure', (t) => {
-  const client = new Client('127.0.0.1', t.context.port);
+tap.test('client: failure', (t) => {
+  const client = new nodeOsc.Client('127.0.0.1', t.context.port);
 
   t.plan(2);
 
